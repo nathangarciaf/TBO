@@ -42,5 +42,6 @@ int main(){
     }
 
     print_leader(vec, n);
+    free(vec);
     return 0;
 }
