@@ -40,7 +40,7 @@ int node_height(Node *n, int height){
             h_right++;
             int h_right = node_height(n->right,h_right);
         }
-        
+
         if(h_left > h_right){
             h = h_left;
         }
@@ -151,3 +151,10 @@ void bt_print(BinaryTree *bt)
 {   
     node_preorder(bt->root);
 }
+
+struct Stack
+{
+    Node *vec_node[50];
+    int first;
+    int size;
+};
