@@ -15,6 +15,8 @@ int main(){
         bt_insert(bt,r);
     }
 
+    printf("TAM: %d\n",bt_height(bt));
+
     bt_print(bt);
     bt_destroy(bt);
 }
