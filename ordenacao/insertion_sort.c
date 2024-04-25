@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "item.h"
 
-extern void sort(Item *a, int lo, int hi){
+void sort(Item *a, int lo, int hi){
     for(int i = lo+1; i <= hi; i++){
         int pos_atual = i;
         int valor_atual = a[i];

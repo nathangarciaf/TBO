@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
-#include "quick_sort.h"
+#include "item.h"
 
 void shuffle(Item *a, int N) {
     struct timeval tv; gettimeofday(&tv, NULL);
