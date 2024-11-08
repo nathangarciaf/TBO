@@ -26,29 +26,19 @@ void node_destroy(Node *n){
     }
 }
 
-int node_height(Node *n, int height){
-    int h = height;
-    if(n != NULL){
-        int h_left = h;
-        if(n->left != NULL){
-            h_left++;
-            int h_left = node_height(n->left,h_left);
-        }
-        
-        int h_right = h;
-        if(n->right != NULL){
-            h_right++;
-            int h_right = node_height(n->right,h_right);
-        }
 
-        if(h_left > h_right){
-            h = h_left;
-        }
-        else{
-            h = h_right;
-        }
+int node_height(Node* root) {
+    if (!root)
+        return 0;
+    else {
+        int left_height = node_height(root->left);
+        int right_height = node_height(root->right);
+        if (left_height >= right_height)
+            return left_height + 1;
+        else
+            return right_height + 1;
     }
-    return (h);
+    return -1;
 }
 
 void node_preorder(Node *n)
@@ -101,10 +91,7 @@ int bt_height(BinaryTree *bt)
     else if(bt->size == 1){
         return 0;
     }
-    else{
-        height = node_height(bt->root,0);
-    }
-    return height;
+    return node_height(bt->root) - 1; 
 }
 
 void bt_insert(BinaryTree *bt, int key)
