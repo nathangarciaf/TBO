@@ -91,8 +91,13 @@ void iter_postorder(){
 
 }
 
-void iter_inorder(Node *root){
+void iter_inorder(Node *root, int size){
+    Stack *s = stack_init(size);
+    stack_push(s,root);
+    Node *curr_node = root->left;
+    while(!stack_empty(s)){
 
+    }
 }
 
 int bt_height(BinaryTree *bt)
@@ -191,6 +196,12 @@ Node *stack_pop(Stack *s){
     Node *removed = s->vec_node[s->first];
     s->vec_node[s->first] = NULL;
     return removed;
+}
+
+int stack_empty(Stack *s){
+    if(s->size != 0)
+        return 0;
+    return 1;
 }
 
 void stack_free(Stack *s){
