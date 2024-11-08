@@ -9,19 +9,23 @@ int main(){
     int n=0;
     scanf("%d",&n);
 
-    /*srand(time(NULL)); 
+    srand(time(NULL)); 
     for(int i = 0; i < n; i++){
         int r = rand();
 
         bt_insert(bt,r);
     }
-    */
-    bt_insert(bt,11);
-    bt_insert(bt,8);
-    bt_insert(bt,13);
-    bt_insert(bt,12);
     printf("TAM: %d\n",bt_height(bt));
 
-    bt_print(bt);
+    clock_t start = clock ();
+    
+
+
+
+    clock_t end = clock ();
+    double seconds = (( double ) end - start ) / CLOCKS_PER_SEC ;
+    printf (" % lf / n" , seconds );
+
+    //bt_print(bt);
     bt_destroy(bt);
 }

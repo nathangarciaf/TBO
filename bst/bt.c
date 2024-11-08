@@ -3,6 +3,7 @@
 #include "bt.h"
 
 typedef struct Node Node;
+typedef struct Stack Stack;
 
 struct Node
 {
@@ -41,29 +42,29 @@ int node_height(Node* root) {
     return -1;
 }
 
-void node_preorder(Node *n)
+void rec_bst_preorder(Node *root)
 {
-    if(n != NULL){
-        printf("%d\n",n->key);
-        node_preorder(n->left);
-        node_preorder(n->right);
+    if(root != NULL){
+        printf("%d\n",root->key);
+        rec_bst_preorder(root->left);
+        rec_bst_preorder(root->right);
     }
 }
 
-void node_inorder(Node *n)
+void rec_bst_inorder(Node *root)
 {
-    if(n != NULL){
-        node_inorder(n->left);
-        printf("%d\n",n->key);
-        node_inorder(n->right);
+    if(root != NULL){
+        rec_bst_inorder(root->left);
+        printf("%d\n",root->key);
+        rec_bst_inorder(root->right);
     }
 }
 
-void node_postorder(Node *n){
-    if(n != NULL){
-        node_postorder(n->left);
-        node_postorder(n->right);
-        printf("%d\n",n->key);
+void rec_bst_postorder(Node *root){
+    if(root != NULL){
+        rec_bst_postorder(root->left);
+        rec_bst_postorder(root->right);
+        printf("%d\n",root->key);
     }
 }
 
@@ -82,6 +83,18 @@ BinaryTree *bt_construct()
     return bt;
 }
 
+void iter_preorder(){
+
+}
+
+void iter_postorder(){
+
+}
+
+void iter_inorder(Node *root){
+
+}
+
 int bt_height(BinaryTree *bt)
 {
     int height = 0;
@@ -92,6 +105,15 @@ int bt_height(BinaryTree *bt)
         return 0;
     }
     return node_height(bt->root) - 1; 
+}
+
+void bst_insert(BinaryTree *bst, int key){
+    if(!bst->root){
+        bst->root = node_construct(key);
+    }
+    else{
+
+    }
 }
 
 void bt_insert(BinaryTree *bt, int key)
@@ -136,12 +158,42 @@ void bt_destroy(BinaryTree *bt)
 
 void bt_print(BinaryTree *bt)
 {   
-    node_preorder(bt->root);
+    rec_bst_preorder(bt->root);
 }
 
 struct Stack
 {
-    Node *vec_node[50];
+    Node **vec_node;
     int first;
     int size;
 };
+
+Stack *stack_init(int size){
+    Stack *s = (Stack*)calloc(1,sizeof(Stack));
+    s->vec_node = (Node*)calloc(size,sizeof(Node));
+    for(int i = 0; i < s->size;i++){
+        s->vec_node[i] = NULL;
+    }
+    s->size = 0;
+    s->first = 0;
+    return s;
+}
+
+void stack_push(Stack *s, Node *n){
+    if(s->size != 0){
+        s->vec_node[s->first] = n;
+        s->first++;
+    }
+}
+
+Node *stack_pop(Stack *s){
+    s->first--;
+    Node *removed = s->vec_node[s->first];
+    s->vec_node[s->first] = NULL;
+    return removed;
+}
+
+void stack_free(Stack *s){
+    free(s->vec_node);
+    free(s);
+}
