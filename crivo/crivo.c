@@ -14,7 +14,7 @@ void vec_free(char *v){
     free(v);
 }
 
-int next_item_find(char *v, int i, int size){
+int next_item_find_char(char *v, int i, int size){
     for(int j = i+1; j <= size; j++){
         if(v[j] != 'x'){
             return j;
@@ -23,6 +23,19 @@ int next_item_find(char *v, int i, int size){
     return size+1;
 }
 
-void item_mark(char *v, int i){
+int next_item_find_int(int *v, int i, int size){
+    for(int j = i+1; j <= size; j++){
+        if(v[j] != 1){
+            return j;
+        }
+    }
+    return size+1;
+}
+
+void item_mark_char(char *v, int i){
     v[i] = 'x';
+}
+
+void item_mark_int(int *v, int i){
+    v[i] = 1;
 }

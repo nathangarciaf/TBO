@@ -13,7 +13,7 @@ int main(){
         scanf("%s", operacao);
         scanf("%c", &c);
 
-        if(!strcmp(operacao, "+")){
+        if(!strcmp(operacao, "+") ){
             
         }
         else if(!strcmp(operacao, "-")){

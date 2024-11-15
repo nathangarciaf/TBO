@@ -1,0 +1,12 @@
+Memory consumption in bytes for N = 100_000:
+sieve_int: 402,052 bytes allocated
+sieve_bool: 102,049 bytes allocated
+sieve_bit: 
+
+
+Running time (in sec.) vs. array type
+
+N	  10^3	    10^4	  10^5	    10^6	      10^7	   10^8	  10^9	  10^10
+int	  0.000284  0.016284  1.020546  82.240350
+char  0.000005  0.000205  1.044813  85.845668
+bit	  
