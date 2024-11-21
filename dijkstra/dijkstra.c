@@ -2,47 +2,68 @@
 #include <stdio.h>
 #include "dijkstra.h"
 
-struct Node
-{
-    Node *next;
-    void *value;
+#define TAM 5
+
+struct double_stack {
+    double *stack;
+    int size, alloc;
 };
 
-struct Stack
-{
-    Node *head;
-    int size;
+struct char_stack {
+    char *stack;
+    int size, alloc;
 };
 
-Node *init_node(Node* next, void *v){
-    Node *n = (Node*)calloc(1, sizeof(Node));
-    n->value = v;
-    n->next = next;
-}
-
-Stack *init_stack(){
-    Stack *s = (Stack*)calloc(1,sizeof(Stack));
+DS *double_stack_init(){
+    DS *s = (DS*)calloc(1,sizeof(DS));
     s->size = 0;
-    s->head = NULL;
+    s->alloc = TAM;
+    s->stack = (double*)calloc(TAM, sizeof(double));
     return s;
 }
 
-void push_front(Stack *s, void *value){
-    if(s->head != NULL){
-        Node *n = s->head;
-        Node *node = init_node(n,value);
-        s->head = node;
-    }
-    else{
-        Node *node = init_node(NULL,value);
-        s->head = node;
-    }
+CS *char_stack_init(){
+    CS *s = (CS*)calloc(1,sizeof(CS));
+    s->size = 0;
+    s->alloc = TAM;
+    s->stack = (char*)calloc(TAM, sizeof(char));
+    return s;
 }
 
-Node *pop_front(Stack *s){
-    Node *head = s->head;
-    Node *new_head = head->next;
-    s->head = new_head;
+void double_stack_push(DS *s, double d){
+    if(s->size == s->alloc){
+        s->alloc *= 2;
+        s->stack = (double*)realloc(s->stack,s->alloc * sizeof(double));
+    }
+    s->stack[s->size] = d;
+    s->size++;
+}
 
-    return head;
+double double_stack_pop(DS *s){
+    s->size--;
+    return s->stack[s->size];
+}
+
+void char_stack_push(CS *s, char c){
+    if(s->size == s->alloc){
+        s->alloc *= 2;
+        s->stack = (char*)realloc(s->stack,s->alloc * sizeof(char));
+    }
+    s->stack[s->size] = c;
+    s->size++;
+}
+
+char char_stack_pop(CS *s){
+    s->size--;
+    return s->stack[s->size];
+}
+
+void double_stack_free(DS *s){
+    free(s->stack);
+    free(s);
+}
+
+void char_stack_free(CS *s){
+    free(s->stack);
+    free(s);
 }

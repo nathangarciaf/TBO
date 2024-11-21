@@ -1,6 +1,11 @@
-typedef struct Node Node;
-typedef struct Stack Stack;
+typedef struct double_stack DS;
+typedef struct char_stack CS;
 
-Stack *init_stack();
-void push_front(Stack *s, void *value);
-Node *pop_front(Stack *s);
+DS *double_stack_init();
+CS *char_stack_init();
+void double_stack_push(DS *s, double d);
+double double_stack_pop(DS *s);
+void char_stack_push(CS *s, char c);
+char char_stack_pop(CS *s);
+void double_stack_free(DS *s);
+void char_stack_free(CS *s);
