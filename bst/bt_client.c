@@ -16,11 +16,8 @@ int main(){
         bst_insert(bt,r);
     }
 
-
-    printf("TAM: %d\n",bt_height(bt));
-
     clock_t start = clock ();
-
+    printf("TAM: %d\n",bt_height(bt));
 
     clock_t end = clock ();
     double seconds = (( double ) end - start ) / CLOCKS_PER_SEC ;

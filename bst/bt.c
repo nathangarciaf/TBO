@@ -182,36 +182,65 @@ void bt_print(BinaryTree *bt)
     rec_bst_preorder(bt->root);
 }
 
+typedef struct tad_node TAD_Node;
+
+struct tad_node {
+    TAD_Node *next;
+
+    Node *bst_node;
+};
+
+TAD_Node *tad_node_create(Node *bst_node){
+    TAD_Node *n = (TAD_Node*)calloc(1, sizeof(TAD_Node));
+    n->bst_node = bst_node;
+    n->next = NULL;
+    return n;
+}
+
+void tad_node_free(TAD_Node *n){
+    if(!n){
+        TAD_Node *next = n->next;
+        free(n);
+        tad_node_free(next);
+    }
+    return;
+}
+
 struct Stack
 {
-    Node **vec_node;
-    int first;
+    TAD_Node *first, *last;
     int size;
 };
 
 Stack *stack_init(int size){
     Stack *s = (Stack*)calloc(1,sizeof(Stack));
-    s->vec_node = (Node**)calloc(size,sizeof(Node*));
-    for(int i = 0; i < s->size;i++){
-        s->vec_node[i] = NULL;
-    }
+    s->first = NULL;
+    s->last = NULL;
     s->size = 0;
-    s->first = 0;
     return s;
 }
 
 void stack_push(Stack *s, Node *n){
-    if(s->size != 0){
-        s->vec_node[s->first] = n;
-        s->first++;
-    }
+    TAD_Node *tn = tad_node_create(n);
+    if(!s->first)
+        s->first = tn;
+    else 
+        s->last->next = tn;
+    s->last = tn;
+    s->size++;
 }
 
 Node *stack_pop(Stack *s){
-    s->first--;
-    Node *removed = s->vec_node[s->first];
-    s->vec_node[s->first] = NULL;
-    return removed;
+    TAD_Node *n = s->first;
+    while(n->next != s->last){
+        n = n->next;
+    }
+    s->size--;
+    n->next = NULL;
+    Node *bst_node = s->last->bst_node;
+    free(s->last);
+    s->last = n;
+    return bst_node;
 }
 
 int stack_empty(Stack *s){
@@ -221,6 +250,6 @@ int stack_empty(Stack *s){
 }
 
 void stack_free(Stack *s){
-    free(s->vec_node);
+    tad_node_free(s->first);
     free(s);
 }
