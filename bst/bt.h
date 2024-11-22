@@ -10,6 +10,15 @@ void bst_insert(BinaryTree *bt, int key);
 void bt_destroy(BinaryTree *bt);
 void bt_print(BinaryTree *bt);
 
-void rec_preorder(BinaryTree *t, void (*visit)(BinaryTree*));
+void rec_visit(BinaryTree *t, void (*visit)(BinaryTree*));
+
+void rec_bst_postorder(BinaryTree *bt);
+void rec_bst_inorder(BinaryTree *bt);
+void rec_bst_preorder(BinaryTree *bt);
+
+void iter_bst_preorder(BinaryTree *bt);
+void iter_bst_postorder(BinaryTree *bt);
+void iter_bst_inorder(BinaryTree *bt);
+void iter_bst_levelorder(BinaryTree *bt);
 
 #endif
