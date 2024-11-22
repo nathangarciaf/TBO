@@ -19,6 +19,21 @@ Node *node_construct(int key){
     return n;
 }
 
+void node_insert(Node *n, int key){
+    if(n->key > key){
+        if(!n->left)
+            n->left = node_construct(key);
+        else
+            node_insert(n->left,key);  
+    }
+    else {
+        if(!n->right)
+            n->right = node_construct(key);
+        else
+            node_insert(n->right,key);  
+    }
+}
+
 void node_destroy(Node *n){
     if(n != NULL){
         node_destroy(n->left);
@@ -26,7 +41,6 @@ void node_destroy(Node *n){
         free(n);
     }
 }
-
 
 int node_height(Node* root) {
     if (!root)
@@ -92,12 +106,12 @@ void iter_postorder(){
 }
 
 void iter_inorder(Node *root, int size){
-    Stack *s = stack_init(size);
+    /*Stack *s = stack_init(size);
     stack_push(s,root);
     Node *curr_node = root->left;
     while(!stack_empty(s)){
 
-    }
+    }*/
 }
 
 int bt_height(BinaryTree *bt)
@@ -117,8 +131,10 @@ void bst_insert(BinaryTree *bst, int key){
         bst->root = node_construct(key);
     }
     else{
-
+        //printf("NODE INSERT: %d\n", key);
+        node_insert(bst->root,key);
     }
+    bst->size++;
 }
 
 void bt_insert(BinaryTree *bt, int key)
@@ -175,7 +191,7 @@ struct Stack
 
 Stack *stack_init(int size){
     Stack *s = (Stack*)calloc(1,sizeof(Stack));
-    s->vec_node = (Node*)calloc(size,sizeof(Node));
+    s->vec_node = (Node**)calloc(size,sizeof(Node*));
     for(int i = 0; i < s->size;i++){
         s->vec_node[i] = NULL;
     }
