@@ -38,15 +38,15 @@ int partition(Item *a, int lo, int hi) {
     int i = lo, j = hi+1;
     Item v = a[lo];
     while(1) {
-        while (less(a[++i], v)) // Find item on left to swap.
+        while (less(a[++i], v)) 
             if (i == hi) break;
-        while (less(v, a[--j])) // Find item on right to swap.
+        while (less(v, a[--j])) 
             if (j == lo) break;
-        if (i >= j) break; // Check if pointers cross.
+        if (i >= j) break;
         exch(a[i], a[j]);
     }
-    exch(a[lo], a[j]); // Swap with partitioning item.
-    return j; // Return index of item known to be in place.
+    exch(a[lo], a[j]); 
+    return j; 
 }
 
 void quick_sort_classic(Item *a, int lo, int hi) {
@@ -69,7 +69,6 @@ void quick_sort_cutoff(Item *a, int lo, int hi) {
 }
 
 void sort(Item *a, int lo, int hi) {
-    //shuffle(a, hi-lo+1); // Needed for performance guarantee.
-
+    //shuffle(a, hi-lo+1); 
     quick_sort_classic(a, lo, hi);
 }
