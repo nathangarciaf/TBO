@@ -1,0 +1,36 @@
+Aluno: Nathan Garcia Freitas
+
+Para rodar as versões desejadas de cada quick_sort, deve-se alterar na main.c
+a versão desejada, ou seja, versão 1 = sort1, versão 2 = sort2,...
+
+- Faça uma análise das 7 vers ̃oes do algoritmo segundo o desempenho. Há alguma
+que se destacou? Qual versão você escolheria e por quê? Em particular, procure
+entender por que a Versão 7 não é utilizada na prática.
+
+R: Após realizar os testes, a conclusão obtida é que as versões 4 e 6 são as melhores,
+embora a versão 3 também possua excelente desempenho. Porém, a versão 6 foi ligeiramente
+melhor, e ao inserir o shuffle, de fato o desempenho melhorou, conforme aumentam o tamanho
+dos vetores, a utilização do shuffle decai, e por isso existe o uso da mediana de 3, que 
+garante um pivo aleatório mais seguro para o algoritmo quicksort.
+
+- Compare a melhor implementação do quick sort obtida até aqui com a melhor implementação
+do merge sort obtida no Laboratório passado. Utilize as entradas com 10M inteiros. É possível
+eleger o melhor algoritmo? Justifique.
+
+R: Varia conforme a necessidade do programa. O Quick Sort em geral é mais rápido na ordenação,
+independente da entrada, mas em contrapartida o mergesort além de garantir a 
+complexidade de O(n.lg(n)) além de ser um algoritmo estável.
+
+- Teste a Vers ̃ao 8 vs. a versão mais eficiente obtida até agora para a entrada aleatória com
+10M inteiros. Qual versão foi melhor? Justifique esse resultado.
+
+R: Apenas a versão 8 foi capaz de rodar os arquivos com entradas de 10M, porém para os arquivos de 
+100K e 1M, a versão 7 acabou que foi melhor.
+
+Repita o teste anterior para a entrada few_uniq/10M_const_keys_unif_rand.txt. Esse
+arquivo possui somente chaves entre 0 e 99. Assim, cada chave aparece em m ́edia 100K
+vezes no arquivo. Qual foi o resultado obtido dessa vez? Explique o que mudou.
+
+R: A versão 8 de fato é mais eficiente nesse caso, visto que, o algoritmo 3-way
+foi idealizado para resolver o problema de ordenação com chaves iguais, inclusive,
+para entradas homogêneas ele possui ótimo desempenho.
