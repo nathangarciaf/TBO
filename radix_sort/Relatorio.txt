@@ -1,0 +1,30 @@
+Relatório Nathan Garcia
+ABRA.TXT (time delay of sorting in seconds)
+QSORT                                    0.000005    0.000005    0.000004
+MSD RADIX SORT                           0.000026    0.000042    0.000039
+MSD RADIX SORT (W/ INSERTION SORT)       0.000012    0.000053    0.000040 
+
+HIST.TXT (time delay of sorting in seconds)
+QSORT                                    0.000020    0.000017    0.000021  
+MSD RADIX SORT                           0.000284    0.000322    0.000285   
+MSD RADIX SORT (W/ INSERTION SORT)       0.000284    0.000282    0.000329
+
+MOBY.TXT (time delay of sorting in seconds)
+QSORT                                    0.833303    0.781482    0.793917     
+MSD RADIX SORT                           2.622692    2.404147    2.300911    
+MSD RADIX SORT (W/ INSERTION SORT)       2.360535    2.343973    2.364521   
+
+TALE.TXT (time delay of sorting in seconds)
+QSORT                                    0.519363    0.499388    0.497559  
+MSD RADIX SORT                           1.872352    1.765516    1.798234  
+MSD RADIX SORT (W/INSERTION SORT)        1.772552    1.621516    1.607085
+
+Para casos muito pequenos, a diferença entre o MSD Radix Sort com cut-off para Insertion Sort e sem o cutoff,
+é muito baixa, enquanto o qsort é o melhor. Há momentos onde um ou outro se torna melhor, mas quando olhamos 
+para os dois arquivos maiores, o MSD Radix Sort com cut-off para Insertion Sort teve um desempenho consideravalmente 
+inferior, sendo menos eficaz do que o qsort. A respeito da diferença do cutoff, ao observar os resultados, nota-se 
+que o desempenho do MSD Radix Sort sem o cut-off em comparação com sua versão com cut-off foi inferior. 
+Isso ocorre porque o sistema tem um overhead ao lidar com arrays muito pequenos gerados pela recursão 
+e há um gasto de memória excessivo sem o cut-off, já que mesmo para sub-arrays pequenos, aloca-se vetores auxiliares 
+count de tamanho R. Assim, para evitar que o MSD Radix Sort fique muito lento, é preciso incluir o cut-off no algoritmo
+para proporcionar essa maior eficiência.
