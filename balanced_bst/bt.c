@@ -61,7 +61,7 @@ void node_rotate_insert(Node *n, int key){
             n->right = node_construct(key);
         else
             node_rotate_insert(n->right,key);
-        //rotate_left(n);
+        rotate_left(n);
     }
 }
 
@@ -101,7 +101,13 @@ void rec_node_preorder(Node *root)
 {
     if(!root)
         return;
-    //printf("%d\n",root->key);
+    printf("%d\n",root->key);
+    if(root->left != NULL){
+        printf("ESQUERDA N NULA\n");
+    }
+    if(root->right != NULL){
+        printf("DIREITA N NULA\n");
+    }
     rec_node_preorder(root->left);
     rec_node_preorder(root->right);
     
@@ -179,6 +185,10 @@ void bt_rotate_insert(BinaryTree *bst, int key){
     else
         node_rotate_insert(bst->root,key);
     bst->size++;
+}
+
+int bt_size(BinaryTree *bt){
+    return bt->size;
 }
 
 void bt_destroy(BinaryTree *bt)

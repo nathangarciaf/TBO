@@ -23,8 +23,9 @@ int main(){
     double seconds = (( double ) end - start ) / CLOCKS_PER_SEC ;
 
     start = clock();
-    rec_visit(bt,rec_bst_inorder);
     end = clock();
+    printf("SIZE: %d\n", bt_size(bt));
+    bt_print(bt);
 
     seconds = (( double ) end - start ) / CLOCKS_PER_SEC ;
     printf ("ITER: %lf\n" , seconds );

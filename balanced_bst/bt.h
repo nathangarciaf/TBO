@@ -7,6 +7,7 @@ BinaryTree *bt_construct();
 int bt_height(BinaryTree *bt);
 void bt_insert(BinaryTree *bt, int key);
 void bt_rotate_insert(BinaryTree *bt, int key);
+int bt_size(BinaryTree *bt);
 void bt_destroy(BinaryTree *bt);
 void bt_print(BinaryTree *bt);
 
