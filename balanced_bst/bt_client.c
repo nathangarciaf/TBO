@@ -16,7 +16,15 @@ int main(){
         bt_rotate_insert(bt,r);
     }
 
-    clock_t start = clock ();
+    /*bt_insert(bt,20);
+    bt_insert(bt,11);
+    bt_insert(bt,9);
+    bt_insert(bt,24);
+    bt_insert(bt,15);
+    bt_insert(bt,23);
+    bt_rotate_insert(bt,28);*/
+
+    clock_t start = clock();
     printf("TAM: %d\n",bt_height(bt));
 
     clock_t end = clock ();
@@ -25,12 +33,11 @@ int main(){
     start = clock();
     end = clock();
     printf("SIZE: %d\n", bt_size(bt));
-    bt_print(bt);
+    //bt_print(bt);
 
     seconds = (( double ) end - start ) / CLOCKS_PER_SEC ;
     printf ("ITER: %lf\n" , seconds );
 
-    //bt_print(bt);
     bt_destroy(bt);
     return 0;
 }

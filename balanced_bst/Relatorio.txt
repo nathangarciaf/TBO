@@ -1,2 +1,3 @@
 Relatório Nathan Garcia
 1- Média de altura: 49 / Menor altura: 46 / Maior altura: 52
+2 - Codigo com rotação == Média de altura: 48 / Menor altura: 46 / Maior altura: 53

@@ -19,19 +19,16 @@ Node *node_construct(int key){
     return n;
 }
 
-void node_insert(Node *n, int key){
-    if(n->key > key){
-        if(!n->left)
-            n->left = node_construct(key);
-        else
-            node_insert(n->left,key);  
-    }
-    else {
-        if(!n->right)
-            n->right = node_construct(key);
-        else
-            node_insert(n->right,key);  
-    }
+Node* node_insert(Node *n, int key) {
+    if (!n) 
+        return node_construct(key);
+
+    if (n->key > key) 
+        n->left = node_insert(n->left, key);
+    else 
+        n->right = node_insert(n->right, key);
+    
+    return n; 
 }
 
 Node* rotate_right(Node *n) {
@@ -48,21 +45,23 @@ Node* rotate_left(Node *n) {
     return t;
 }
 
-void node_rotate_insert(Node *n, int key){
-    if(n->key > key){
-        if(!n->left)
-            n->left = node_construct(key);
-        else
-            node_rotate_insert(n->left,key);
-        rotate_right(n);
+Node* node_rotate_insert(Node *n, int key) {
+    if (!n) {
+        return node_construct(key);
     }
+
+    if(n->key > key) {
+        n->left = node_rotate_insert(n->left, key);
+        if (n->left) 
+            n = rotate_right(n);
+    } 
     else {
-        if(!n->right)
-            n->right = node_construct(key);
-        else
-            node_rotate_insert(n->right,key);
-        rotate_left(n);
+        n->right = node_rotate_insert(n->right, key);
+        if (n->right) 
+            n = rotate_left(n);
     }
+
+    return n; 
 }
 
 void node_destroy(Node *n){
@@ -75,16 +74,14 @@ void node_destroy(Node *n){
 
 int node_height(Node* root) {
     if (!root)
-        return 0;
-    else {
-        int left_height = node_height(root->left);
-        int right_height = node_height(root->right);
-        if (left_height >= right_height)
-            return left_height + 1;
-        else
-            return right_height + 1;
-    }
-    return -1;
+        return -1;
+
+    int left_height = node_height(root->left);
+    int right_height = node_height(root->right);
+
+    if(left_height > right_height)
+        return left_height + 1;
+    return right_height + 1;
 }
 
 void rec_node_postorder(Node *root)
@@ -93,7 +90,7 @@ void rec_node_postorder(Node *root)
         return;
     rec_node_postorder(root->left);
     rec_node_postorder(root->right);
-    //printf("%d\n",root->key);
+    printf("%d\n",root->key);
     
 }
 
@@ -102,12 +99,6 @@ void rec_node_preorder(Node *root)
     if(!root)
         return;
     printf("%d\n",root->key);
-    if(root->left != NULL){
-        printf("ESQUERDA N NULA\n");
-    }
-    if(root->right != NULL){
-        printf("DIREITA N NULA\n");
-    }
     rec_node_preorder(root->left);
     rec_node_preorder(root->right);
     
@@ -156,34 +147,19 @@ void rec_bst_postorder(BinaryTree *bt)
     rec_node_postorder(bt->root);
 }
 
-int bt_height(BinaryTree *bt)
-{
-    int height = 0;
-    if(bt->size == 0){
+int bt_height(BinaryTree *bt) {
+    if (!bt->root)
         return -1;
-    }
-    else if(bt->size == 1){
-        return 0;
-    }
-    return node_height(bt->root) - 1; 
+    return node_height(bt->root);
 }
 
-void bt_insert(BinaryTree *bst, int key){
-    if(!bst->root){
-        bst->root = node_construct(key);
-    }
-    else{
-        //printf("NODE INSERT: %d\n", key);
-        node_insert(bst->root,key);
-    }
+void bt_insert(BinaryTree *bst, int key) {
+    bst->root = node_insert(bst->root, key);
     bst->size++;
 }
 
-void bt_rotate_insert(BinaryTree *bst, int key){
-    if(!bst->root)
-        bst->root = node_construct(key);
-    else
-        node_rotate_insert(bst->root,key);
+void bt_rotate_insert(BinaryTree *bst, int key) {
+    bst->root = node_rotate_insert(bst->root, key);
     bst->size++;
 }
 
@@ -199,7 +175,7 @@ void bt_destroy(BinaryTree *bt)
 
 void bt_print(BinaryTree *bt)
 {   
-    rec_node_preorder(bt->root);
+    rec_bst_preorder(bt);
 }
 
 typedef struct tad_node TAD_Node;
@@ -375,7 +351,7 @@ void iter_bst_levelorder(BinaryTree *bt){
     queue_push(q,n);
     while(!queue_empty(q)){
         n = queue_pop_front(q);
-        //printf("%d\n",n->key);
+        printf("%d\n",n->key);
         if(n->left)
             queue_push(q,n->left);
         if(n->right)
